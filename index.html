@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modernization in Medical Sociology and Anthropology</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load new fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            /* Applied Aurora body font and colors */
+            font-family: 'Poppins', sans-serif;
+            background-color: #FDFBF7; /* Cream/Off-white */
+            color: #4a4a4a; /* Dark Gray */
+        }
+        /* Applied Aurora heading font */
+        h1, h2, h3, h4, h5, h6, .slide-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+        }
+        /* Style for the active nav link, using Aurora palette */
+        .nav-link.active {
+            background-color: #522888; /* Deep Purple */
+            color: white;
+            font-weight: 600;
+            border-left: 3px solid #BF9553; /* Gold */
+            transform: translateX(5px);
+        }
+        .nav-link:hover {
+            color: #BF9553; /* Gold */
+            transform: translateX(5px);
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+        /* Card style from Aurora */
+        .card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        /* Custom styling for the split content */
+        .discipline-card {
+            min-height: 200px;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .sociology-card {
+            border-left: 4px solid #522888; /* Deep Purple */
+            background-color: #F8F4FA; /* Lighter Purple */
+        }
+        .anthropology-card {
+            border-left: 4px solid #BF9553; /* Gold */
+            background-color: #FAF8F4; /* Lighter Gold */
+        }
+        .discipline-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="flex h-screen">
+        <!-- Sidebar (Interactive Navigation) - Styled with Aurora theme -->
+        <nav id="sidebar" class="w-72 bg-white border-r border-gray-200 p-4 overflow-y-auto flex-shrink-0 hidden md:block shadow-lg">
+            <h2 class="text-2xl font-bold text-[#522888] mb-4">Presentation Outline</h2>
+            <ul id="nav-links" class="space-y-1">
+                <!-- Navigation links will be dynamically populated by JavaScript -->
+            </ul>
+        </nav>
+
+        <!-- Main Content Area (Slides + Footer) -->
+        <div class="flex-grow flex flex-col h-screen">
+            
+            <!-- Slide Container -->
+            <main id="slide-container" class="flex-grow p-6 md:p-12 lg:p-16 overflow-y-auto bg-[#FDFBF7]">
+                <!-- Slides will be dynamically populated by JavaScript -->
+            </main>
+            
+            <!-- Navigation Controls (Footer) - Styled with Aurora theme -->
+            <div class="p-4 bg-white flex justify-between items-center z-10 shadow-lg border-t border-gray-200 flex-shrink-0">
+                <button id="prevBtn" onclick="changeSlide(-1)" class="px-6 py-2 bg-[#522888] hover:bg-[#754D9D] text-white font-semibold rounded-lg shadow-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    &larr; Previous
+                </button>
+                <span id="slideIndicator" class="text-lg font-medium text-gray-700"></span>
+                <button id="nextBtn" onclick="changeSlide(1)" class="px-6 py-2 bg-[#522888] hover:bg-[#754D9D] text-white font-semibold rounded-lg shadow-md transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next &rarr;
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of slide objects containing title and content (HTML)
+        const slides = [
+            {
+                title: "Introduction: Defining Modernization",
+                subtitle: "The Transformation of Health, Illness, and Care Systems",
+                content: `
+                    <h2 class="text-3xl font-semibold mb-4 text-[#522888]">Modernization in Medical Sociology and Medical Anthropology</h2>
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modernization is how societies move from old ways—like farming and close communities—to modern ways, like being industrialized, organized by rules, and high-tech. In health studies, this process changes how we define sickness, set up care, and view the human body.</p>
+                    <div class="mt-8 p-6 border-l-4 border-[#BF9553] bg-white rounded-md card">
+                        <h4 class="text-xl font-semibold text-[#522888]">The Dual Focus:</h4>
+                        <ul class="list-disc list-inside text-lg space-y-2 ml-4 text-[#4a4a4a]">
+                            <li><strong class="text-[#522888]">Medical Sociology</strong> looks at how modernization changes medical institutions, social structures, and social relationships tied to health.</li>
+                            <li><strong class="text-[#522888]">Medical Anthropology</strong> looks at the cultural beliefs, local practices, and personal experiences shaped by modern health systems.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            {
+                title: "1. Social Differentiation in Medicine (Point 1)",
+                subtitle: "Specialized Jobs and Working Together",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology explains this through **Durkheim's idea of working together**, where having many **specialized roles** (like a surgeon, nurse, and administrator) makes the system function, replacing shared traditions.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The complex hierarchy within a large **Nigerian Teaching Hospital**, where power is split between specialized doctors, managers, and lab staff, all depending on each other.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology studies the **new roles and cultural boundaries** created between these highly specialized groups, which often leads to conflicts in patient care.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **tension between Western-trained nurses and traditional birth attendants** (TBAs) in rural Tanzania, where TBAs are seen as less "modern" but are more trusted locally.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "2. Medicalization and Social Control (Point 4)",
+                subtitle: "Turning Social Problems into Medical Conditions",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Medicalization converts non-medical problems into treatable medical conditions.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociologists see this as a way to **control society**, arguing that it reframes misbehavior or social issues as diseases that only doctors can manage, thus increasing medical power.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The modern classification of certain forms of **spiritual affliction in Ghana** as clinical mental disorders (like schizophrenia), putting them under medical, rather than spiritual, authority.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropologists study how medical categories are **used across cultures**, sometimes replacing local explanations for suffering with modern diagnostic labels.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The way urban **Kenyan families use labels like "stress" or "ADHD"** to explain behavior, even though they may also consult traditional healers for underlying spiritual causes.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "3. Technology and the Body (Point 6)",
+                subtitle: "New Tech Changes Who Has Power and Who Gets Help",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modern technology (e.g., imaging, life support) redefines the boundaries of life, death, and disease.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology analyzes how these technologies create new forms of **social hierarchy** (who gets access) and change the **power balance between doctors and patients**.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The extreme inequality in access to life-saving technology like **dialysis machines** in parts of West Africa, where money determines who lives, regardless of medical need.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology examines the **cultural meaning** of these devices, seeing them as new **ritual objects** or powerful symbols in clinical settings.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **symbolic power of an ultrasound image** in rural Ethiopia or Uganda, where the technology offers cultural proof of life and reinforces social claims over the unborn child.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "4. Globalization and Disease (Point 8)",
+                subtitle: "The Global Movement of Pathogens and Policy",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modern transportation and trade accelerate the spread of infectious diseases (pandemics).</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology studies the role of **global organizations** (WHO, international treaties) in managing this risk, focusing on official policy and institutional responses.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **African CDC's** (Africa Centres for Disease Control and Prevention) role in coordinating responses to outbreaks like Ebola and COVID-19 across 55 member states, setting up continental health safety rules.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology focuses on how diseases move across borders, examining the **local social and cultural factors** that influence transmission and how well public health actions work.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: How traditional, intimate **funeral practices in West African nations** during the 2014 Ebola outbreak required a cultural approach to redesigning safe burial rituals to stop the disease from spreading.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "5. Pharmaceuticalization (Point 10)",
+                subtitle: "Drug Companies Take Over and Shape How We Use Medicine",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">The modern health system is dominated by the pharmaceutical industry.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology examines how **society defines health risks** and how drug advertising directly influences what patients ask for.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The aggressive **marketing of skin-lightening products** (often using illegal ingredients) in Nigeria and South Africa, which wrongly frames dark skin as a health problem that needs a chemical 'cure'.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology studies the **cultural practices** around drug use, including local adjustments, not taking medicine as prescribed, and the use of drugs as traded goods in developing nations.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The practice of **'dosing' antibiotics and anti-malarials** (taking less than prescribed to save money or for future use) bought cheaply in informal Ugandan markets.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "6. Health Inequality (Point 11)",
+                subtitle: "Systemic Unfairness and How Illness Affects People's Bodies",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modernization often makes health inequality permanent through class and racial differences.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology uses the **fundamental cause theory** to show how your wealth and social status determine access to health resources and outcomes over your lifetime.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **huge difference in life expectancy and maternal mortality rates** between people living in Nairobi’s wealthy areas and those in poor settlements like Kibera.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology provides **in-depth stories** of how poverty and discrimination are **physically experienced** as illness and suffering in marginalized communities.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The physical toll of **mining-related poverty and lung disease** in the Copperbelt region of Zambia, where economic hardship literally impacts the workers' health.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "7. Chronic Illness and Modern Life (Point 12)",
+                subtitle: "The Daily Life and Personal Experience of Long-Term Sickness",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modern life means a shift from sudden infections to **long-term chronic diseases**.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology studies the **social organization of patient lives** managing long-term care, self-management, and the patient's role as a "worker" in their own care.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The need for community-led **support groups for Type 2 Diabetes** patients in urban Ghana to help coordinate medication, diet, and exercise in a high-stress, rapidly changing environment.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology looks at the **lived experience** of chronic suffering—the personal, day-to-day reality of the disease for the individual.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The profound **lived experience of stigma** for HIV/AIDS patients in rural Malawi, where the disease forces individuals to redefine their social identity and self-image to cope with being marginalized.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "8. The Biopolitics of Health (Point 16)",
+                subtitle: "State Control Over Life and Local Resistance",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modern governments control populations through the management of health and illness.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology (using Foucault's ideas) analyzes **biopower**—how public health data and interventions control people by managing disease risk without direct force.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The government of **Botswana's use of national HIV rates** to justify and enforce mass public health campaigns, treating the whole population as a risk that needs management.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology studies how these top-down state policies are **experienced, resisted, or ignored** by individuals, such as with vaccination requirements or quarantine rules.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: **Community resistance and persistent doubt towards polio vaccination campaigns** in parts of Northern Nigeria, often driven by rumors and distrust of outside organizations.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "9. Risk and Health (Point 20)",
+                subtitle: "Measuring Danger vs. Local Beliefs",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modernity shifts public health from fate to **calculated risk**.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology investigates how **social structures spread risk unevenly** and how media campaigns frame health habits as only being the individual's fault.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The unfairly high **risk of respiratory illness** for poor communities in parts of South Africa due to living near heavily polluting industrial zones and coal power stations.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology explores the **cultural logic** of how people see risk—why some communities ignore "scientific" risks while seeing others as more important based on their local knowledge.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The belief in parts of Zimbabwe that certain illnesses are caused by **ancestral spirits** or social problems, leading communities to focus on ritual healing over standard medical care for prevention.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "10. Body Modification and Modern Identity (Point 23)",
+                subtitle: "The Body as Something We Buy and Change",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modernization separates the body from tradition, making it a site for self-creation and consumer choice (cosmetic surgery, fitness).</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology explores the role of **mass media and consumerism** in setting beauty standards and pressuring people to fit in.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **fast-growing cosmetic surgery industry in Lagos, Nigeria**, largely driven by social media trends and the desire to meet globalized beauty standards (e.g., Brazilian Butt Lifts).</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology studies how the **body becomes an object** of modernity, noting the cultural importance and ritual nature of surgical changes.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: How traditional practices like **specific scarification rites** for initiation have been replaced or reinterpreted in some urban areas through modern piercings, tattoos, and cosmetic procedures.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "11. The Commodification of Health (Point 24)",
+                subtitle: "Treating Health Like a Business",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modern healthcare treats health as a product or service that is subject to market forces.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology analyzes the shift from **doctors being in charge to managers being in charge**, prioritizing cost-efficiency and profit over traditional medical ethics.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **rise of large private corporate hospital chains** across countries like South Africa and Egypt, which run healthcare primarily for profit, sometimes focusing on profitable procedures instead of public health needs.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology studies the **moral conflicts** that happen when body parts are traded (e.g., organ donation, blood trade) and the cultural values attached to these transactions.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The ethical debates and local cultural responses to **commercial surrogacy and medical tourism** in destinations like South Africa and Kenya, where bodies become part of an economic exchange for global clients.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "12. Narrative and Healing (Point 25)",
+                subtitle: "Personal Stories vs. Traditional Healing",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modernization tries to standardize treatment, but personal stories are still key to how people experience illness.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology examines the **social negotiation of illness identity**—how patients build a life story around their disease (narrative analysis).</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The struggle of an educated professional in Lagos with a **non-communicable disease like stroke** to accept the identity of a dependent patient, which clashes with their former social status.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology studies **traditional healing systems** and the important role of storytelling, metaphor, and ritual in those practices that modern medicine often ignores.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The concurrent use of **traditional sangomas or diviners in South Africa** alongside biomedical doctors, where the sangoma gives the patient a culturally meaningful reason for their illness—addressing spiritual causes that clinical diagnosis misses.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "13. Patient Activism (Point 28)",
+                subtitle: "Social Power and Grassroots Resistance",
+                content: `
+                    <p class="text-xl mb-6 text-[#4a4a4a]">Modernization has led to increasingly informed and mobilized patients who challenge medical authority.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="discipline-card sociology-card">
+                            <h4 class="discipline-title text-[#522888]">Sociological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Sociology studies the creation and **social power of patient movements** (e.g., AIDS activism) in demanding changes to policy and research funding.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: The **Treatment Action Campaign (TAC) in South Africa**, a powerful social movement that successfully used lawsuits to force the government to provide free antiretroviral drugs to HIV-positive citizens.</p>
+                        </div>
+                        <div class="discipline-card anthropology-card">
+                            <h4 class="discipline-title text-[#BF9553]">Anthropological Perspective:</h4>
+                            <p class="text-lg text-[#4a4a4a]">Anthropology documents the **local efforts and cultural resistance** within patient movements, focusing on identity politics and community-based knowledge.</p>
+                            <p class="text-sm mt-3 italic text-gray-600">African Example: **Community groups demanding the inclusion of locally sourced herbal remedies** into state-approved healthcare protocols, challenging the medical system's exclusive control over what is considered valid medicine.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "14. Conclusion & Thank You",
+                subtitle: "Modernization: A Two-Sided Coin in African Health",
+                content: `
+                    <h2 class="text-3xl font-semibold mb-4 text-[#522888]">Key Takeaways</h2>
+                    <ul class="list-disc list-inside text-xl space-y-3 ml-4 text-[#4a4a4a]">
+                        <li>Modernization brings specialization and great technology, but often creates **unfair access** to care.</li>
+                        <li>Sociology focuses on **large structures** (hospitals, policy, global groups).</li>
+                        <li>Anthropology highlights **local cultural meaning** and the real-life experience of being sick and resisting the system.</li>
+                        <li>The African examples show that modernization is not a simple process; it is constantly being negotiated between global systems and **local realities**.</li>
+                    </ul>
+                    <div class="mt-10 text-center">
+                        <h1 class="text-6xl font-extrabold text-[#BF9553] slide-title">THANK YOU</h1>
+                        <p class="text-2xl mt-4 text-[#522888]">Questions and Discussion are welcome.</p>
+                    </div>
+                `
+            }
+        ];
+
+        let currentSlideIndex = 0;
+        const slideContainer = document.getElementById('slide-container');
+        const sidebarList = document.getElementById('nav-links');
+        const slideIndicator = document.getElementById('slideIndicator');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // Function to dynamically render all slides
+        function renderSlides() {
+            slideContainer.innerHTML = ''; // Clear existing slides
+            slides.forEach((slideData, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'slide w-full h-full';
+                slideDiv.id = 'slide-' + index;
+                slideDiv.style.display = 'none'; // Hide all slides initially
+
+                slideDiv.innerHTML = `
+                    <div class="flex-grow flex flex-col justify-center max-w-4xl mx-auto">
+                        <h1 class="text-5xl font-extrabold text-gray-800 mb-2 slide-title">${slideData.title}</h1>
+                        <h3 class="text-3xl font-light text-gray-600 mb-8 border-b border-[#BF9553] pb-4">${slideData.subtitle || ''}</h3>
+                        <div class="slide-content text-xl leading-relaxed text-[#4a4a4a]">${slideData.content}</div>
+                    </div>
+                `;
+                slideContainer.appendChild(slideDiv);
+            });
+        }
+        
+        // NEW: Function to dynamically render navigation sidebar
+        function renderNav() {
+            sidebarList.innerHTML = ''; // Clear existing links
+            slides.forEach((slide, index) => {
+                // For the Introduction and Conclusion slide, use a custom label. Otherwise, use the slide title.
+                let navTitle = slide.title;
+                if (index === 0) {
+                    navTitle = 'Introduction';
+                } else if (index === slides.length - 1) {
+                    navTitle = 'Conclusion & Thank You';
+                }
+                
+                sidebarList.innerHTML += `
+                    <li>
+                        <button 
+                            onclick="showSlide(${index})" 
+                            id="nav-link-${index}"
+                            class="nav-link w-full text-left p-2 rounded-md text-gray-700"
+                        >
+                            <span class="font-medium">${navTitle}</span>
+                        </button>
+                    </li>
+                `;
+            });
+        }
+
+
+        // Function to show/hide slides and update controls
+        function showSlide(index) {
+            // Hide all slides
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides.forEach(slide => {
+                slide.style.display = 'none';
+            });
+            
+            // Show the target slide
+            const targetSlide = document.getElementById('slide-' + index);
+            if(targetSlide) {
+                targetSlide.style.display = 'block';
+            }
+
+            // Update active state in sidebar
+            const allNavLinks = document.querySelectorAll('.nav-link');
+            allNavLinks.forEach((link, i) => {
+                if (i === index) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            currentSlideIndex = index;
+            slideIndicator.textContent = `Slide ${currentSlideIndex + 1} of ${slides.length}`;
+
+            // Control button states
+            prevBtn.disabled = currentSlideIndex === 0;
+            nextBtn.disabled = currentSlideIndex === slides.length - 1;
+        }
+
+        // Function for navigation
+        function changeSlide(direction) {
+            let newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < slides.length) {
+                showSlide(newIndex);
+            }
+        }
+
+        // Initialize presentation
+        renderNav();
+        renderSlides();
+        showSlide(currentSlideIndex);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+    </script>
+</body>
+</html>
